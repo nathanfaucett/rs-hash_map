@@ -1,0 +1,17 @@
+[package]
+name = "hash_map"
+version = "0.1.0"
+authors = ["nathanfaucett <nathanfaucett@gmail.com>"]
+
+keywords = ["hash", "map"]
+description = "hash map"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/nathanfaucett/rs-hash_map.git"
+homepage = "https://github.com/nathanfaucett/rs-hash_map"
+
+[dependencies]
+collection_traits = {git = "https://github.com/nathanfaucett/rs-collection_traits"}
+prng = {git = "https://github.com/nathanfaucett/rs-prng"}
+rng = {git = "https://github.com/nathanfaucett/rs-rng"}
+vector = {git = "https://github.com/nathanfaucett/rs-vector"}
