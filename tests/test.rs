@@ -22,6 +22,12 @@ fn test_str() {
     assert!(m.contains_key("a"));
     assert!(m.contains_key("b"));
     assert!(m.contains_key("c"));
+    m["a"] = 2;
+    m["b"] = 3;
+    m["c"] = 4;
+    assert_eq!(m["a"], 2);
+    assert_eq!(m["b"], 3);
+    assert_eq!(m["c"], 4);
 }
 
 #[test]
