@@ -23,19 +23,18 @@ extern crate vector;
 
 
 mod default_hasher;
-mod hash_map;
+pub mod hash_map;
 mod random_state;
-mod table;
+pub mod table;
 
 
 pub use self::default_hasher::DefaultHasher;
 pub use self::hash_map::*;
 pub use self::random_state::RandomState;
-pub use self::table::*;
+pub use self::table::RawTable;
 
 
-
-trait Recover<Q: ?Sized> {
+pub trait Recover<Q: ?Sized> {
     type Key;
 
     fn get(&self, key: &Q) -> Option<&Self::Key>;

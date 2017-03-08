@@ -17,6 +17,7 @@ use super::random_state::RandomState;
 use super::table::{self, Bucket, EmptyBucket, FullBucket, FullBucketMut, RawTable, SafeHash};
 use super::table::BucketState::{Empty, Full};
 
+
 const MIN_NONZERO_RAW_CAPACITY: usize = 32;
 
 
@@ -25,7 +26,7 @@ struct DefaultResizePolicy;
 
 impl DefaultResizePolicy {
     #[inline(always)]
-    fn new() -> DefaultResizePolicy {
+    fn new() -> Self {
         DefaultResizePolicy
     }
     #[inline]
@@ -600,7 +601,7 @@ pub struct IterMut<'a, K: 'a, V: 'a> {
 }
 
 pub struct IntoIter<K, V> {
-    pub(super) inner: table::IntoIter<K, V>,
+    inner: table::IntoIter<K, V>,
 }
 
 pub struct Keys<'a, K: 'a, V: 'a> {
@@ -647,7 +648,7 @@ impl<'a, K: Debug, V: Debug> fmt::Debug for Values<'a, K, V> {
 
 
 pub struct Drain<'a, K: 'a, V: 'a> {
-    pub(super) inner: table::Drain<'a, K, V>,
+    inner: table::Drain<'a, K, V>,
 }
 
 pub struct ValuesMut<'a, K: 'a, V: 'a> {
