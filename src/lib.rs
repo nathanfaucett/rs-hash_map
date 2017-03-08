@@ -19,7 +19,6 @@ extern crate collections;
 extern crate collection_traits;
 extern crate prng;
 extern crate rng;
-extern crate vector;
 
 
 mod default_hasher;
