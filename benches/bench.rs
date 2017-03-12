@@ -39,3 +39,20 @@ fn bench_std_hash_map(b: &mut Bencher) {
         v
     });
 }
+
+#[bench]
+fn bench_hash_map_new(b: &mut Bencher) {
+    use hash_map::HashMap;
+
+    b.iter(|| {
+        HashMap::<usize, usize>::new()
+    });
+}
+#[bench]
+fn bench_std_hash_map_new(b: &mut Bencher) {
+    use std::collections::HashMap;
+
+    b.iter(|| {
+        HashMap::<usize, usize>::new()
+    });
+}
