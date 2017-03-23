@@ -862,7 +862,7 @@ impl<'a, K, V> Iterator for Drain<'a, K, V> {
     fn next(&mut self) -> Option<(SafeHash, K, V)> {
         self.iter.next().map(|bucket| {
             unsafe {
-                (**self.table).size -= 1;
+                (*(*self.table as *mut RawTable<K, V>)).size -= 1;
                 let (k, v) = ptr::read(bucket.pair);
                 (SafeHash { hash: ptr::replace(bucket.hash, EMPTY_BUCKET) }, k, v)
             }

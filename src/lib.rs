@@ -1,6 +1,5 @@
 #![feature(alloc)]
 #![feature(collections)]
-#![feature(pub_restricted)]
 #![feature(fused)]
 #![feature(heap_api)]
 #![feature(core_intrinsics)]
