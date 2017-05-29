@@ -1,0 +1,31 @@
+[root]
+name = "hash_map"
+version = "0.1.0"
+dependencies = [
+ "collection_traits 0.1.0 (git+https://github.com/nathanfaucett/rs-collection_traits)",
+ "prng 0.1.0 (git+https://github.com/nathanfaucett/rs-prng)",
+ "rng 0.1.0 (git+https://github.com/nathanfaucett/rs-rng)",
+]
+
+[[package]]
+name = "collection_traits"
+version = "0.1.0"
+source = "git+https://github.com/nathanfaucett/rs-collection_traits#e29b61b46e8fb805aa20df333acbe9036f3f7fa3"
+
+[[package]]
+name = "prng"
+version = "0.1.0"
+source = "git+https://github.com/nathanfaucett/rs-prng#1e4d90224cd211818c85dea2ad477b36c22cb81e"
+dependencies = [
+ "rng 0.1.0 (git+https://github.com/nathanfaucett/rs-rng)",
+]
+
+[[package]]
+name = "rng"
+version = "0.1.0"
+source = "git+https://github.com/nathanfaucett/rs-rng#1b0519dd3478aadd430003aef670633c8812e34a"
+
+[metadata]
+"checksum collection_traits 0.1.0 (git+https://github.com/nathanfaucett/rs-collection_traits)" = "<none>"
+"checksum prng 0.1.0 (git+https://github.com/nathanfaucett/rs-prng)" = "<none>"
+"checksum rng 0.1.0 (git+https://github.com/nathanfaucett/rs-rng)" = "<none>"
