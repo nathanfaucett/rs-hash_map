@@ -1,4 +1,4 @@
-use alloc::heap::{EMPTY, allocate, deallocate};
+use alloc::heap::{allocate, deallocate};
 
 use core::cmp;
 use core::hash::{BuildHasher, Hash, Hasher};
@@ -524,7 +524,7 @@ impl<K, V> RawTable<K, V> {
             return RawTable {
                 size: 0,
                 capacity: 0,
-                hashes: Unique::new(EMPTY as *mut HashUint),
+                hashes: Unique::empty(),
                 marker: marker::PhantomData,
             };
         }
@@ -562,13 +562,13 @@ impl<K, V> RawTable<K, V> {
         let hashes_size = self.capacity * size_of::<HashUint>();
         let pairs_size = self.capacity * size_of::<(K, V)>();
 
-        let buffer = *self.hashes as *mut u8;
+        let buffer = self.hashes.as_ptr() as *mut u8;
         let (pairs_offset, _, oflo) =
             calculate_offsets(hashes_size, pairs_size, align_of::<(K, V)>());
         debug_assert!(!oflo, "capacity overflow");
         unsafe {
             RawBucket {
-                hash: *self.hashes,
+                hash: self.hashes.as_ptr(),
                 pair: buffer.offset(pairs_offset as isize) as *const _,
                 _marker: marker::PhantomData,
             }
@@ -578,7 +578,7 @@ impl<K, V> RawTable<K, V> {
     pub fn new(capacity: usize) -> RawTable<K, V> {
         unsafe {
             let ret = RawTable::new_uninitialized(capacity);
-            ptr::write_bytes(*ret.hashes, 0, capacity);
+            ptr::write_bytes(ret.hashes.as_ptr(), 0, capacity);
             ret
         }
     }
@@ -594,7 +594,7 @@ impl<K, V> RawTable<K, V> {
     fn raw_buckets(&self) -> RawBuckets<K, V> {
         RawBuckets {
             raw: self.first_bucket_raw(),
-            hashes_end: unsafe { self.hashes.offset(self.capacity as isize) },
+            hashes_end: unsafe { self.hashes.as_ptr().offset(self.capacity as isize) },
             marker: marker::PhantomData,
         }
     }
@@ -784,7 +784,7 @@ impl<'a, K, V> Drain<'a, K, V> {
         unsafe {
             Iter {
                 iter: self.iter.clone(),
-                elems_left: (**self.table).size,
+                elems_left: (self.table).as_ref().size,
             }
         }
     }
@@ -862,7 +862,7 @@ impl<'a, K, V> Iterator for Drain<'a, K, V> {
     fn next(&mut self) -> Option<(SafeHash, K, V)> {
         self.iter.next().map(|bucket| {
             unsafe {
-                (*(*self.table as *mut RawTable<K, V>)).size -= 1;
+                (*(self.table.as_ptr() as *mut RawTable<K, V>)).size -= 1;
                 let (k, v) = ptr::read(bucket.pair);
                 (SafeHash { hash: ptr::replace(bucket.hash, EMPTY_BUCKET) }, k, v)
             }
@@ -870,13 +870,13 @@ impl<'a, K, V> Iterator for Drain<'a, K, V> {
     }
 
     fn size_hint(&self) -> (usize, Option<usize>) {
-        let size = unsafe { (**self.table).size() };
+        let size = unsafe { self.table.as_ref().size() };
         (size, Some(size))
     }
 }
 impl<'a, K, V> ExactSizeIterator for Drain<'a, K, V> {
     fn len(&self) -> usize {
-        unsafe { (**self.table).size() }
+        unsafe { self.table.as_ref().size() }
     }
 }
 
@@ -943,7 +943,7 @@ unsafe impl<#[may_dangle] K, #[may_dangle] V> Drop for RawTable<K, V> {
         debug_assert!(!oflo, "should be impossible");
 
         unsafe {
-            deallocate(*self.hashes as *mut u8, size, align);
+            deallocate(self.hashes.as_ptr() as *mut u8, size, align);
         }
     }
 }
