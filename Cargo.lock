@@ -15,7 +15,7 @@ source = "git+https://github.com/nathanfaucett/rs-collection_traits#8e5fb429d654
 [[package]]
 name = "prng"
 version = "0.1.0"
-source = "git+https://github.com/nathanfaucett/rs-prng#1e4d90224cd211818c85dea2ad477b36c22cb81e"
+source = "git+https://github.com/nathanfaucett/rs-prng#ce17641082164b5b1567de0560576a2af3e28485"
 dependencies = [
  "rng 0.1.0 (git+https://github.com/nathanfaucett/rs-rng)",
 ]
@@ -23,7 +23,7 @@ dependencies = [
 [[package]]
 name = "rng"
 version = "0.1.0"
-source = "git+https://github.com/nathanfaucett/rs-rng#1b0519dd3478aadd430003aef670633c8812e34a"
+source = "git+https://github.com/nathanfaucett/rs-rng#356735ea3ff6ab7aecd5d77e66a91f4c68914c3c"
 
 [metadata]
 "checksum collection_traits 0.1.0 (git+https://github.com/nathanfaucett/rs-collection_traits)" = "<none>"
