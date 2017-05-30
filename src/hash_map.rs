@@ -457,7 +457,7 @@ impl<K, V, S> Default for HashMap<K, V, S>
 }
 
 
-impl<K, V, S> Collection for HashMap<K, V, S>
+impl<K, V, S> CollectionMut for HashMap<K, V, S>
     where K: Eq + Hash,
           S: BuildHasher
 {
@@ -472,7 +472,7 @@ impl<K, V, S> Collection for HashMap<K, V, S>
 }
 
 
-impl<'a, K, V, S> Insert<K, V> for HashMap<K, V, S>
+impl<'a, K, V, S> InsertMut<K, V> for HashMap<K, V, S>
     where K: Eq + Hash,
           S: BuildHasher
 {
@@ -486,7 +486,7 @@ impl<'a, K, V, S> Insert<K, V> for HashMap<K, V, S>
     }
 }
 
-impl<'a, K, Q: ?Sized, V, S> Remove<&'a Q> for HashMap<K, V, S>
+impl<'a, K, Q: ?Sized, V, S> RemoveMut<&'a Q> for HashMap<K, V, S>
     where K: Eq + Hash + Borrow<Q>,
           Q: Eq + Hash,
           S: BuildHasher
@@ -556,23 +556,18 @@ impl<'a, K, Q: ?Sized, V, S> IndexMut<&'a Q> for HashMap<K, V, S>
     }
 }
 
-impl<'a, K, Q, V, S> Map<'a, K, Q, V> for HashMap<K, V, S>
+
+impl<'a, K, Q, V, S> MapMut<'a, K, Q, V> for HashMap<K, V, S>
     where K: 'a + Eq + Hash + Borrow<Q>,
           V: 'a,
           Q: 'a + ?Sized + Hash + Eq,
-          S: 'a + BuildHasher,
+          S: 'a + BuildHasher
 {
     #[inline(always)]
     fn contains_key(&self, k: &Q) -> bool {
         self.search(k).into_occupied_bucket().is_some()
     }
 }
-
-impl<'a, K, Q, V, S> MapMut<'a, K, Q, V> for HashMap<K, V, S>
-    where K: 'a + Eq + Hash + Borrow<Q>,
-          V: 'a,
-          Q: 'a + ?Sized + Hash + Eq,
-          S: 'a + BuildHasher {}
 
 
 pub struct Iter<'a, K: 'a, V: 'a> {
