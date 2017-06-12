@@ -457,7 +457,7 @@ impl<K, V, S> Default for HashMap<K, V, S>
 }
 
 
-impl<K, V, S> CollectionMut for HashMap<K, V, S>
+impl<K, V, S> Collection for HashMap<K, V, S>
     where K: Eq + Hash,
           S: BuildHasher
 {
@@ -465,6 +465,12 @@ impl<K, V, S> CollectionMut for HashMap<K, V, S>
     fn len(&self) -> usize {
         self.table.size()
     }
+}
+
+impl<K, V, S> CollectionMut for HashMap<K, V, S>
+    where K: Eq + Hash,
+          S: BuildHasher
+{
     #[inline(always)]
     fn clear(&mut self) {
         self.drain();
