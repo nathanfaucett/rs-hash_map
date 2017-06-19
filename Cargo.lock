@@ -10,7 +10,7 @@ dependencies = [
 [[package]]
 name = "collection_traits"
 version = "0.1.0"
-source = "git+https://github.com/nathanfaucett/rs-collection_traits#c7e3730fd3d6ed3ce5df1a25486cf0b051025ca6"
+source = "git+https://github.com/nathanfaucett/rs-collection_traits#a75d1c20655834c53b29a232cad5f1a3b1c1ddb3"
 
 [[package]]
 name = "prng"

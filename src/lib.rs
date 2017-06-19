@@ -1,5 +1,4 @@
 #![feature(alloc)]
-#![feature(collections)]
 #![feature(fused)]
 #![feature(heap_api)]
 #![feature(core_intrinsics)]
@@ -13,7 +12,6 @@
 
 
 extern crate alloc;
-extern crate collections;
 
 extern crate collection_traits;
 extern crate prng;
